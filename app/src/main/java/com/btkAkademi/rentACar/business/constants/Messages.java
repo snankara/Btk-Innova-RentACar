@@ -1,0 +1,41 @@
+package com.btkAkademi.rentACar.business.constants;
+
+public class Messages {
+	public static final String invalidBrandName = "invalid.brand.name";
+	public static final String brandAdded = "brand.added";
+	public static final String brandNameExists = "brand.name.exists";
+	public static final String brandLimitExceeded = "brand.limit.exceeded";
+	public static final String customerAlreadyExists = "customer.already.exists";
+	public static final String carAdded = "car.added";
+	public static final String colorAdded = "color.added";
+	public static final String colorNameExists = "color.name.exists";
+	public static final String brandUpdated = "brand.updated";
+	public static final String carUpdated = "car.updated";
+	public static final String corporateCustomerAdded = "corporate.customer.added";
+	public static final String companyNameExists = "company.name.exists";
+	public static final String customerNotFound = "customer.notFound";
+	public static final String brandNotFound = "brand.notFound";
+	public static final String colorNotFound = "color.notFound";
+	public static final String carNotFound = "car.notFound";
+	public static final String carMaintenance = "car.maintenance";
+	public static final String rentalUpdated = "rental.updated";
+	public static final String rentalDeleted = "rental.deleted";
+	public static final String paymentUpdated = "payment.updated";
+	public static final String paymentDeleted = "payment.deleted";
+	public static final String individualCustomerUpdated = "individualCustomer.updated";
+	public static final String individualCustomerDeleted = "individualCustomer.deleted";
+	public static final String creditCardUpdated = "creditCard.updated";
+	public static final String creditCardDeleted = "creditCard.deleted";
+	public static final String corporateCustomerUpdated = "corporateCustomer.updated";
+	public static final String corporateCustomerDeleted = "corporateCustomer.deleted";
+	public static final String colorDeleted = "color.deleted";
+	public static final String colorUpdated = "color.updated";
+	public static final String carDeleted = "car.deleted";
+	public static final String carMaintenanceUpdated = "car.maintenance.updated";
+	public static final String carMaintenanceDeleted = "car.maintenance.deleted";
+	public static final String carDamageUpdated = "car.damage.updated";
+	public static final String carDamageDeleted = "car.damage.deleted";
+	public static final String brandDeleted = "brand.deleted";
+	public static final String additionalUpdated = "additional.updated";
+	public static final String additionalDeleted = "additional.deleted";
+}

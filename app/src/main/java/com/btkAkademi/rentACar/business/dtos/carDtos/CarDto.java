@@ -15,7 +15,10 @@ public class CarDto {
 	private int kilometer;
 	private int minFindexScore;
 	private int classTypeId;
+	private String classTypeName; 
 	private int minCustomerAge;
 	private int brandId;
+	private String brandName;
+	private String colorName;
 	private int colorId;
 }

@@ -10,6 +10,7 @@ import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 public interface BrandService {
+	DataResult<List<BrandListDto>> getAllIsDeletedFalse();
 	DataResult<List<BrandListDto>> getAll();
 	DataResult<BrandDto> getById(int brandId);
 	Result add(CreateBrandRequest createBrandRequest);

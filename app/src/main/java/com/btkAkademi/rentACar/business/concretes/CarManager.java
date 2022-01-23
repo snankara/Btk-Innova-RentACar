@@ -19,6 +19,7 @@ import com.btkAkademi.rentACar.business.requests.carRequests.UpdateCarRequest;
 import com.btkAkademi.rentACar.core.utilities.business.BusinessRules;
 import com.btkAkademi.rentACar.core.utilities.mapping.ModelMapperService;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
+import com.btkAkademi.rentACar.core.utilities.results.ErrorDataResult;
 import com.btkAkademi.rentACar.core.utilities.results.ErrorResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 import com.btkAkademi.rentACar.core.utilities.results.SuccessDataResult;
@@ -42,7 +43,7 @@ public class CarManager implements CarService{
 		this.colorService = colorService;
 	}
 	
-	public DataResult<List<CarListDto>> getAll(){
+	public DataResult<List<CarListDto>> getAllIsDeletedFalse(){
 		
 		List<Car> carList = this.carDao.findAllByIsDeletedFalse();		
 		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
@@ -141,8 +142,12 @@ public class CarManager implements CarService{
 	@Override
 	public DataResult<CarDto> findTop1ByClassTypeIdAndRentalStateIsFalse(int classTypeId) {
 		Car car = this.carDao.findTop1ByClassTypeIdAndRentalStateIsFalse(classTypeId);
-		CarDto carDto = this.modelMapperService.forDto().map(car, CarDto.class);
-		return new SuccessDataResult<CarDto>(carDto);
+		if (car != null) {
+			CarDto carDto = this.modelMapperService.forDto().map(car, CarDto.class);
+			return new SuccessDataResult<CarDto>(carDto);
+		}
+		return new ErrorDataResult<CarDto>("Aynı Sınıftan Başka Araç Bulunamadı !");
+		
 	}
 
 	@Override
@@ -152,5 +157,13 @@ public class CarManager implements CarService{
 		this.carDao.save(car);
 		return new SuccessResult();
 	}
+
+	@Override
+	public DataResult<List<CarListDto>> getAll() {
+		List<Car> carList = this.carDao.findAll();		
+		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
+				.map(car, CarListDto.class)).collect(Collectors.toList());
+		
+		return new SuccessDataResult<List<CarListDto>>(response);	}
 	
 }

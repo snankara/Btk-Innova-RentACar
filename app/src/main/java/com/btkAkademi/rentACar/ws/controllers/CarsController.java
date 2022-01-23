@@ -31,6 +31,11 @@ public class CarsController {
 		this.carService = carService;
 	}
 
+	@GetMapping("getallisdeletedfalse")
+	public DataResult<List<CarListDto>> getAllIsDeletedFalse(){
+		return this.carService.getAllIsDeletedFalse();
+	}
+	
 	@GetMapping("getall")
 	public DataResult<List<CarListDto>> getAll(){
 		return this.carService.getAll();

@@ -15,7 +15,11 @@ public class CarListDto {
 	private int findexScore;
 	private int kilometer;
 	private int brandId;
+	private int classTypeId;
+	private String classTypeName; 
+	private boolean isDeleted;
 	private String brandName;
+	private int minCustomerAge;
 	private String colorName;
 	private int colorId;
 }

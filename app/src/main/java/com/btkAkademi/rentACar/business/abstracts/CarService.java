@@ -10,6 +10,7 @@ import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 public interface CarService {
+	DataResult<List<CarListDto>> getAllIsDeletedFalse();
 	DataResult<List<CarListDto>> getAll();
 	DataResult<CarDto> getById(int carId);
 	DataResult<CarDto> findTop1ByClassTypeIdAndRentalStateIsFalse(int classTypeId);

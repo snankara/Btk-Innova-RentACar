@@ -31,6 +31,11 @@ public class BrandsController {
 		this.brandService = brandService;
 	}
 	
+	@GetMapping("getallisdeletedfalse")
+	public DataResult<List<BrandListDto>> getAllIsDeletedFalse(){
+		return this.brandService.getAllIsDeletedFalse();
+	}
+	
 	@GetMapping("getall")
 	public DataResult<List<BrandListDto>> getAll(){
 		return this.brandService.getAll();

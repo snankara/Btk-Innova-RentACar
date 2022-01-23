@@ -36,6 +36,11 @@ public class ColorsController {
 		return this.colorService.getAll();
 	}
 	
+	@GetMapping("getallisdeletedfalse")
+	public DataResult<List<ColorListDto>> getAllIsDeletedFalse(){
+		return this.colorService.getAllIsDeletedFalse();
+	}
+	
 	@GetMapping("getbyid")
 	public DataResult<ColorDto> getById(@RequestParam int id){
 		return this.colorService.getById(id);

@@ -66,17 +66,19 @@ public class RentalManager implements RentalService{
 				checkRentalDate(createRentalRequest.getRentDate(),createRentalRequest.getReturnDate()),
 				checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
 				checkRentalCustomerId(createRentalRequest.getCustomerId()),
+				//checkReturnDate(createRentalRequest.getReturnDate()),
 						checkCarMaintenance(createRentalRequest.getCarId()), 
 						checkIndividualCustomerFindexScoreAndCarFindexScore(createRentalRequest.getCarId(), createRentalRequest.getCustomerId()),
-						checkMinCustomerAge(createRentalRequest.getCarId(), createRentalRequest.getCustomerId()));
+						checkMinCustomerAge(createRentalRequest.getCarId(), createRentalRequest.getCustomerId()), checkRentalDate(createRentalRequest.getRentDate(), createRentalRequest.getReturnDate()));
 		
 		if(result != null) {
 			return result;
 		}
 		
-		int carId = getCarIdForClassType(createRentalRequest);
-		createRentalRequest.setCarId(carId);
 		
+		int carId = getCarIdForClassType(createRentalRequest);
+		
+		createRentalRequest.setCarId(carId);
 		Rental rental = modelMapperService.forRequest().map(createRentalRequest, Rental.class);
 		this.rentalDao.save(rental);
 		return new SuccessResult("Rental Added !");
@@ -114,10 +116,8 @@ public class RentalManager implements RentalService{
 	
 	private int getCarIdForClassType(CreateRentalRequest createRentalRequest) {
 		CarDto car = this.carService.getById(createRentalRequest.getCarId()).getData();
-
 		var carMaintenanceState = checkCarMaintenance(createRentalRequest.getCarId()).isSuccess();
 		var returnDateState = checkReturnDate(createRentalRequest.getReturnDate()).isSuccess();
-		
 		if (!carMaintenanceState || !returnDateState) {
 			CarDto carDto = this.carService.findTop1ByClassTypeIdAndRentalStateIsFalse(car.getClassTypeId()).getData();
 			this.carService.updateCarRentalState(carDto.getId());
@@ -133,7 +133,6 @@ public class RentalManager implements RentalService{
 		
 		if (LocalDate.now().isAfter(returnDate)) {
 			return new SuccessResult();
-			
 		}
 		
 		return new ErrorResult("Araba Kirada");

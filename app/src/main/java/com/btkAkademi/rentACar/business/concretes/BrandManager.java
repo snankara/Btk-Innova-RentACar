@@ -35,11 +35,10 @@ public class BrandManager implements BrandService {
 	}
 
 	@Override
-	public DataResult<List<BrandListDto>> getAll() {
+	public DataResult<List<BrandListDto>> getAllIsDeletedFalse() {
 		List<Brand> brandList =  this.brandDao.findAllByIsDeletedFalse();
-		//stream api -- stream listeyi dolaşmaya (iterate etmeye) yarıyor.
-		List<BrandListDto> response = brandList.stream().map(brand -> modelMapperService.forDto() //stream api kullanarak her bir brand'i dto'ya çevirdik
-				.map(brand, BrandListDto.class)).collect(Collectors.toList()); // collect ile listeye çeviriyoruz.
+		List<BrandListDto> response = brandList.stream().map(brand -> modelMapperService.forDto() 
+				.map(brand, BrandListDto.class)).collect(Collectors.toList());
 		return new SuccessDataResult<List<BrandListDto>>(response);
 	}
 
@@ -117,6 +116,14 @@ public class BrandManager implements BrandService {
 		brand.setDeleted(true);
 		this.brandDao.save(brand);
 		return new SuccessResult(Messages.brandDeleted);
+	}
+
+	@Override
+	public DataResult<List<BrandListDto>> getAll() {
+		List<Brand> brandList =  this.brandDao.findAll();
+		List<BrandListDto> response = brandList.stream().map(brand -> modelMapperService.forDto() 
+				.map(brand, BrandListDto.class)).collect(Collectors.toList());
+		return new SuccessDataResult<List<BrandListDto>>(response);
 	}
 
 }

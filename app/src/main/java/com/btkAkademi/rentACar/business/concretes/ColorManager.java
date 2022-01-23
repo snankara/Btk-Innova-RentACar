@@ -35,7 +35,7 @@ public class ColorManager implements ColorService{
 	}
 
 	@Override
-	public DataResult<List<ColorListDto>> getAll() {
+	public DataResult<List<ColorListDto>> getAllIsDeletedFalse() {
 		List<Color> colorList = this.colorDao.findAllByIsDeletedFalse();
 		
 		List<ColorListDto> response = colorList.stream().map(color -> modelMapperService.forDto()
@@ -107,5 +107,15 @@ public class ColorManager implements ColorService{
 		color.setDeleted(true);
 		this.colorDao.save(color);
 		return new SuccessResult(Messages.colorDeleted);
+	}
+
+	@Override
+	public DataResult<List<ColorListDto>> getAll() {
+		List<Color> colorList = this.colorDao.findAll();
+		
+		List<ColorListDto> response = colorList.stream().map(color -> modelMapperService.forDto()
+				.map(color, ColorListDto.class)).collect(Collectors.toList());
+		
+		return new SuccessDataResult<List<ColorListDto>>(response);
 	}
 }

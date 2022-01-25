@@ -14,6 +14,4 @@ public class AdditionalDto {
 	private String additionalName;
 	
 	private double additionalAmount;
-
-	private int rentalId;
 }

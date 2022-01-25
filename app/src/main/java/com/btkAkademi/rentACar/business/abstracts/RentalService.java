@@ -12,7 +12,7 @@ import com.btkAkademi.rentACar.entities.concretes.Rental;
 
 public interface RentalService {
 	
-	Result rentForIndividualCustomer(CreateRentalRequest createRentalRequest);
+	DataResult<RentalDto> rentForIndividualCustomer(CreateRentalRequest createRentalRequest);
 	Result rentForCorporateCustomer(CreateRentalRequest createRentalRequest);
 	Result update(UpdateRentalRequest updateRentalRequest);
 	Result delete(int id);

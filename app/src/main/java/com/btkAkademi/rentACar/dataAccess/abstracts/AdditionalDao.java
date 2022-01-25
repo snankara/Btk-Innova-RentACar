@@ -10,5 +10,5 @@ public interface AdditionalDao extends JpaRepository<Additional, Integer>{
 	Additional findById(int id);
 	List<Additional> findAllByIsDeletedFalse();
 	List<Additional> findAllByIsDeletedTrue();
-	Additional findByRentalId(int rentalId);
+	//Additional findByRentalId(int rentalId);
 }

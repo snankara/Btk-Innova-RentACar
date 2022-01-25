@@ -18,6 +18,5 @@ public class RentalDto {
 	private int customerId;
 	private int carId;
 	private int rentedCityId;
-	private int returnedCityId;
-	private int paymentId;
+	private int returnedCityId;;
 }

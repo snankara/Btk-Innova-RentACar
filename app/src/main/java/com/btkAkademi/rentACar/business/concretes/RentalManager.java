@@ -25,6 +25,7 @@ import com.btkAkademi.rentACar.core.utilities.abstracts.FindexScoreService;
 import com.btkAkademi.rentACar.core.utilities.business.BusinessRules;
 import com.btkAkademi.rentACar.core.utilities.mapping.ModelMapperService;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
+import com.btkAkademi.rentACar.core.utilities.results.ErrorDataResult;
 import com.btkAkademi.rentACar.core.utilities.results.ErrorResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 import com.btkAkademi.rentACar.core.utilities.results.SuccessDataResult;
@@ -61,7 +62,7 @@ public class RentalManager implements RentalService{
 	}
 
 	@Override
-	public Result rentForIndividualCustomer(CreateRentalRequest createRentalRequest) {
+	public DataResult<RentalDto> rentForIndividualCustomer(CreateRentalRequest createRentalRequest) {
 		Result result = BusinessRules.run(
 				checkRentalDate(createRentalRequest.getRentDate(),createRentalRequest.getReturnDate()),
 				checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
@@ -72,7 +73,7 @@ public class RentalManager implements RentalService{
 						checkMinCustomerAge(createRentalRequest.getCarId(), createRentalRequest.getCustomerId()), checkRentalDate(createRentalRequest.getRentDate(), createRentalRequest.getReturnDate()));
 		
 		if(result != null) {
-			return result;
+			return new ErrorDataResult<>(result.getMessage());
 		}
 		
 		
@@ -81,7 +82,9 @@ public class RentalManager implements RentalService{
 		createRentalRequest.setCarId(carId);
 		Rental rental = modelMapperService.forRequest().map(createRentalRequest, Rental.class);
 		this.rentalDao.save(rental);
-		return new SuccessResult("Rental Added !");
+		
+		RentalDto rentalDto = modelMapperService.forDto().map(rental, RentalDto.class);
+		return new SuccessDataResult<RentalDto>(rentalDto, "Rental Added !");
 	}
 	
 	@Override

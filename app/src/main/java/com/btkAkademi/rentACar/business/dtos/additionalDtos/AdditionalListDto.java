@@ -14,5 +14,4 @@ public class AdditionalListDto {
 	
 	private double additionalAmount;
 
-	private int rentalId;
 }

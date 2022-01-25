@@ -33,7 +33,7 @@ public class RentalsController {
 	}
 	
 	@PostMapping("rentforindividualcustomer")
-	public Result rentForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest){
+	public DataResult<RentalDto> rentForIndividualCustomer(@RequestBody @Valid CreateRentalRequest createRentalRequest){
 		return this.rentalService.rentForIndividualCustomer(createRentalRequest);
 	}
 	

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.btkAkademi.rentACar.business.abstracts.AdditionalItemService;
 import com.btkAkademi.rentACar.business.abstracts.AdditionalService;
 import com.btkAkademi.rentACar.business.abstracts.CarService;
 import com.btkAkademi.rentACar.business.abstracts.PaymentService;
@@ -14,6 +15,7 @@ import com.btkAkademi.rentACar.business.abstracts.PromotionService;
 import com.btkAkademi.rentACar.business.abstracts.RentalService;
 import com.btkAkademi.rentACar.business.constants.Messages;
 import com.btkAkademi.rentACar.business.dtos.additionalDtos.AdditionalDto;
+import com.btkAkademi.rentACar.business.dtos.additionalDtos.AdditionalListDto;
 import com.btkAkademi.rentACar.business.dtos.carDtos.CarDto;
 import com.btkAkademi.rentACar.business.dtos.paymentDtos.PaymentDto;
 import com.btkAkademi.rentACar.business.dtos.paymentDtos.PaymentListDto;
@@ -37,16 +39,21 @@ public class PaymentManager implements PaymentService{
 	private PaymentDao paymentDao;
 	private ModelMapperService modelMapperService;
 	private RentalService rentalService;
+	private AdditionalItemService additionalItemService;
 	private AdditionalService additionalService;
 	private CarService carService;
 	private FakePosService fakeBankService;
 	private PromotionService promotionService;
 	
 	@Autowired
-	public PaymentManager(PromotionService promotionService, FakePosService fakeBankService, CarService carService, PaymentDao paymentDao, ModelMapperService modelMapperService, RentalService rentalService, AdditionalService additionalService) {
+	public PaymentManager(PromotionService promotionService, FakePosService fakeBankService, CarService carService, 
+			PaymentDao paymentDao, ModelMapperService modelMapperService, RentalService rentalService, 
+			AdditionalItemService additionalItemService, AdditionalService additionalService) {
+		
 		this.paymentDao = paymentDao;
 		this.modelMapperService = modelMapperService;
 		this.rentalService = rentalService;
+		this.additionalItemService = additionalItemService;
 		this.additionalService = additionalService;
 		this.carService = carService;
 		this.fakeBankService = fakeBankService;
@@ -77,23 +84,27 @@ public class PaymentManager implements PaymentService{
 		
 		double totalResult = 0;
 		
-		System.out.println(promotionCode);
 		RentalDto rentalDto = this.rentalService.getById(rentalId).getData();
-		AdditionalDto additionalDto = this.additionalService.getByRentalId(rentalId).getData();
+		
+		List<AdditionalListDto> additionals = this.additionalItemService.findAllByRentalId(rentalId).getData();
+		
 		CarDto carDto = this.carService.getById(rentalDto.getCarId()).getData();
+		
 		PromotionDto promotionDto = this.promotionService.getByPromotionCode(promotionCode).getData();
 		
 		Period diff = Period.between(rentalDto.getRentDate(), rentalDto.getReturnDate());
-		
-		if (promotionDto != null) {	
-			totalResult = diff.getDays() * carDto.getDailyPrice() + additionalDto.getAdditionalAmount();
-			totalResult = totalResult - totalResult * promotionDto.getDiscountRate();
+
+		for (AdditionalListDto additional : additionals) {
+			AdditionalDto additionalDto = this.additionalService.getById(additional.getId()).getData();
+			
+			if (promotionDto != null) {	
+				totalResult = diff.getDays() * carDto.getDailyPrice() + additionalDto.getAdditionalAmount();
+				totalResult = totalResult - totalResult * promotionDto.getDiscountRate();
+			}
+			else {
+				totalResult = diff.getDays() * carDto.getDailyPrice() + additionalDto.getAdditionalAmount();
+			}
 		}
-		else {
-			totalResult = diff.getDays() * carDto.getDailyPrice() + additionalDto.getAdditionalAmount();
-		}
-		
-		
 		
 		return totalResult;
 	}

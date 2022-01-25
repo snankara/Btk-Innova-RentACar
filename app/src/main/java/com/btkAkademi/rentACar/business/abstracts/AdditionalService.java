@@ -11,7 +11,7 @@ import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 public interface AdditionalService {
 	DataResult<AdditionalDto> getById(int id);
-	DataResult<AdditionalDto> getByRentalId(int rentalId);
+	//DataResult<AdditionalDto> getByRentalId(int rentalId);
 	DataResult<List<AdditionalListDto>> getAll();
 	Result add(CreateAdditionalRequest createAdditionalRequest);
 	Result update(UpdateAdditionalRequest updateAdditionalRequest);

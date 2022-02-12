@@ -38,4 +38,5 @@ public class Messages {
 	public static final String brandDeleted = "brand.deleted";
 	public static final String additionalUpdated = "additional.updated";
 	public static final String additionalDeleted = "additional.deleted";
+	public static final String invoiceCreated = "invoice.created";
 }

@@ -65,7 +65,7 @@ public class RentalManager implements RentalService{
 	public DataResult<RentalDto> rentForIndividualCustomer(CreateRentalRequest createRentalRequest) {
 		Result result = BusinessRules.run(
 				checkRentalDate(createRentalRequest.getRentDate(),createRentalRequest.getReturnDate()),
-				checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
+				//checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
 				checkRentalCustomerId(createRentalRequest.getCustomerId()),
 				//checkReturnDate(createRentalRequest.getReturnDate()),
 						checkCarMaintenance(createRentalRequest.getCarId()), 
@@ -91,7 +91,7 @@ public class RentalManager implements RentalService{
 	public Result rentForCorporateCustomer(CreateRentalRequest createRentalRequest) {
 		Result result = BusinessRules.run(
 				checkRentalDate(createRentalRequest.getRentDate(),createRentalRequest.getReturnDate()),
-				checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
+				//checkRentalKilometer(createRentalRequest.getRentedKilometer(),createRentalRequest.getReturnedKilometer()),
 				checkRentalCustomerId(createRentalRequest.getCustomerId()),
 						checkCarMaintenance(createRentalRequest.getCarId()), 
 						checkCorporateCustomerFindexScoreAndCarFindexScore(createRentalRequest.getCarId(), createRentalRequest.getCustomerId()));

@@ -24,9 +24,6 @@ public class CreateRentalRequest {
 	@NotNull
 	private int rentedKilometer;
 	
-	@Nullable
-	private int returnedKilometer;
-	
 	private int customerId;
 	
 	private int carId;

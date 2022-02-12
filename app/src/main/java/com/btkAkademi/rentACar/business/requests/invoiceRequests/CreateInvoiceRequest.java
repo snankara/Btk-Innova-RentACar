@@ -14,6 +14,6 @@ import lombok.Data;
 public class CreateInvoiceRequest {
 	
 	private int rentalId;
-	
+	private int paymentId;
 	private LocalDate invoiceDate;
 }

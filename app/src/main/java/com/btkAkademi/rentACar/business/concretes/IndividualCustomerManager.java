@@ -96,7 +96,7 @@ public class IndividualCustomerManager implements IndividualCustomerService{
 		individualCustomer.setDeleted(true);
 		this.individualCustomerDao.save(individualCustomer);
 		return new SuccessResult(Messages.individualCustomerDeleted);
-	}
+	} 
 
 	@Override
 	public DataResult<IndividualCustomerDto> getById(int id) {

@@ -24,7 +24,9 @@ public class UpdateCarRequest {
 	private String description;
 	
 	@NotNull
-	private int findexScore;
+	private int minFindexScore;
+	
+	private int minCustomerAge;
 	
 	private int classTypeId;
 

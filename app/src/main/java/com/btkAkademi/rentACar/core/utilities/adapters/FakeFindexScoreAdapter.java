@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.btkAkademi.rentACar.core.utilities.abstracts.FindexScoreService;
-import com.btkAkademi.rentACar.core.utilities.fakeServices.FakeFindexScoreService;
+import com.btkAkademi.rentACar.core.utilities.services.FakeFindexScoreService;
 
 @Service
 public class FakeFindexScoreAdapter implements FindexScoreService{

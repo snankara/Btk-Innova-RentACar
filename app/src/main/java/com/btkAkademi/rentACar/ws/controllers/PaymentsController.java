@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 @RestController
 @RequestMapping("/api/payments")
+@CrossOrigin
 public class PaymentsController {
 	private PaymentService paymentService;
 
@@ -29,7 +31,7 @@ public class PaymentsController {
 	}
 	
 	@PostMapping("add")
-	public Result add(@RequestBody @Valid CreatePaymentRequest createPaymentRequest, @RequestParam(required = false) String promotionCode) {
+	public DataResult<PaymentDto> add(@RequestBody @Valid CreatePaymentRequest createPaymentRequest, @RequestParam(required = false) String promotionCode) {
 		return this.paymentService.add(createPaymentRequest, promotionCode);
 	}
 	

@@ -46,10 +46,10 @@ public class BrandManager implements BrandService {
 	public Result add(CreateBrandRequest createBrandRequest) {
 		
 		Result result = BusinessRules.run(
-				checkIfBrandNameExists(createBrandRequest.getName()) 
+				checkIfBrandNameExists(createBrandRequest.getName()),checkIfBrandLimitExceeded(3) 
 				);
 		
-		//checkIfBrandLimitExceeded(3)
+		
 		if(result != null) {
 			return result;
 		}

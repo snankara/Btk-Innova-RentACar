@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.btkAkademi.rentACar.business.abstracts.AdditionalItemService;
-import com.btkAkademi.rentACar.business.dtos.additionalDtos.AdditionalListDto;
+import com.btkAkademi.rentACar.business.dtos.additionalItemDtos.AdditionalItemListDto;
 import com.btkAkademi.rentACar.business.requests.additionalItemRequests.CreateAdditionalItemRequest;
 import com.btkAkademi.rentACar.core.utilities.mapping.ModelMapperService;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
@@ -37,12 +37,12 @@ public class AdditionalItemManager implements AdditionalItemService{
 	}
 
 	@Override
-	public DataResult<List<AdditionalListDto>> findAllByRentalId(int rentalId) {
+	public DataResult<List<AdditionalItemListDto>> findAllByRentalId(int rentalId) {
 		List<AdditionalItem> additionalItems = this.additionalItemDao.findAllByRentalId(rentalId);
 		
-		List<AdditionalListDto> response = additionalItems.stream().map(additionalItem -> this.modelMapperService.forDto()
-				.map(additionalItem, AdditionalListDto.class)).collect(Collectors.toList());
+		List<AdditionalItemListDto> response = additionalItems.stream().map(additionalItem -> this.modelMapperService.forDto()
+				.map(additionalItem, AdditionalItemListDto.class)).collect(Collectors.toList());
 				
-		return new SuccessDataResult<List<AdditionalListDto>>(response);
+		return new SuccessDataResult<List<AdditionalItemListDto>>(response);
 	}
 }

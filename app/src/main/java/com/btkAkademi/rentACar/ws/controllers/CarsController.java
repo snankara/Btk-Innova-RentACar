@@ -33,7 +33,7 @@ public class CarsController {
 
 	@GetMapping("getallisdeletedfalse")
 	public DataResult<List<CarListDto>> getAllIsDeletedFalse(){
-		return this.carService.getAllIsDeletedFalse();
+		return this.carService.findAllByIsDeletedFalseAndRentalStateFalse();
 	}
 	
 	@GetMapping("getall")

@@ -1,5 +1,6 @@
 package com.btkAkademi.rentACar.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.btkAkademi.rentACar.business.abstracts.InvoiceService;
+import com.btkAkademi.rentACar.business.constants.Messages;
 import com.btkAkademi.rentACar.business.dtos.invoiceDtos.InvoiceListDto;
 import com.btkAkademi.rentACar.business.requests.invoiceRequests.CreateInvoiceRequest;
 import com.btkAkademi.rentACar.core.utilities.mapping.ModelMapperService;
@@ -32,8 +34,9 @@ public class InvoiceManager implements InvoiceService{
 	@Override
 	public Result add(CreateInvoiceRequest createInvoiceRequest) {
 		Invoice invoice = this.modelMapperService.forRequest().map(createInvoiceRequest, Invoice.class);
+		invoice.setInvoiceDate(LocalDate.now());
 		this.invoiceDao.save(invoice);
-		return new SuccessResult();
+		return new SuccessResult(Messages.invoiceCreated);
 	}
 
 	@Override

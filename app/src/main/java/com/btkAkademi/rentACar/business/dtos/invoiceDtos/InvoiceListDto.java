@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.btkAkademi.rentACar.business.dtos.additionalDtos.AdditionalDto;
+import com.btkAkademi.rentACar.business.dtos.additionalDtos.AdditionalListDto;
 import com.btkAkademi.rentACar.business.dtos.paymentDtos.PaymentDto;
 import com.btkAkademi.rentACar.entities.concretes.Additional;
 import com.btkAkademi.rentACar.entities.concretes.Payment;
@@ -36,14 +37,13 @@ public class InvoiceListDto {
 	
 	private String brandName;
 	
+	private String colorName;
+	
 	private String returnedCity;
 	
 	private String paymentAmount;
-	
-	private String additionalName;
-	
-	private double additionalAmount;
-	
+		
 	private double dailyPrice;
 	
+	private List<AdditionalListDto> additionalListDtos;
 }

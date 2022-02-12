@@ -1,4 +1,4 @@
-package com.btkAkademi.rentACar.core.utilities.fakeServices;
+package com.btkAkademi.rentACar.core.utilities.services;
 
 public class FakeFindexScoreService {
 	public int calculateIndividualCustomerFindexScore(String natioalityNumber){

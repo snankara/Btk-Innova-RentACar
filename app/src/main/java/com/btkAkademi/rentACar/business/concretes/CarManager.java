@@ -1,6 +1,8 @@
 package com.btkAkademi.rentACar.business.concretes;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,9 +45,9 @@ public class CarManager implements CarService{
 		this.colorService = colorService;
 	}
 	
-	public DataResult<List<CarListDto>> getAllIsDeletedFalse(){
+	public DataResult<List<CarListDto>> findAllByIsDeletedFalseAndRentalStateFalse(){
 		
-		List<Car> carList = this.carDao.findAllByIsDeletedFalse();		
+		List<Car> carList = this.carDao.findAllByIsDeletedFalseAndRentalStateFalse();		
 		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
 				.map(car, CarListDto.class)).collect(Collectors.toList());
 		
@@ -160,10 +162,21 @@ public class CarManager implements CarService{
 
 	@Override
 	public DataResult<List<CarListDto>> getAll() {
-		List<Car> carList = this.carDao.findAll();		
+		List<Car> carList =  this.carDao.findAll();	
+		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
+					.map(car, CarListDto.class)).collect(Collectors.toList());
+		
+		return new SuccessDataResult<List<CarListDto>>(response);
+	}
+
+	@Override
+	public DataResult<List<CarListDto>> findAllByRentalStateTrue() {
+		
+		List<Car> carList = this.carDao.findAllByRentalStateTrue();		
 		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
 				.map(car, CarListDto.class)).collect(Collectors.toList());
 		
-		return new SuccessDataResult<List<CarListDto>>(response);	}
+		return new SuccessDataResult<List<CarListDto>>(response);
+	}
 	
 }

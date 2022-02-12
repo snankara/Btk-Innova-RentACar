@@ -10,7 +10,7 @@ import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
 public interface PaymentService {
-	Result add(CreatePaymentRequest createPaymentRequest, String promotionCode);
+	DataResult<PaymentDto> add(CreatePaymentRequest createPaymentRequest, String promotionCode);
 	Result update(UpdatePaymentRequest updatePaymentRequest);
 	Result delete(int id);
 	DataResult<PaymentDto> getById(int id);

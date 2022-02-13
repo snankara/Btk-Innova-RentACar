@@ -16,7 +16,7 @@ public interface CarService {
 	
 	DataResult<List<CarListDto>> findAllByRentalStateTrue();
 	
-	DataResult<List<CarListDto>> getAll();
+	DataResult<List<CarListDto>> getAll(int pageNo,int pageSize);
 	
 	DataResult<CarDto> getById(int carId);
 	

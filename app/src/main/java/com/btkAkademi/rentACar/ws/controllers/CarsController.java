@@ -20,6 +20,8 @@ import com.btkAkademi.rentACar.business.requests.carRequests.UpdateCarRequest;
 import com.btkAkademi.rentACar.core.utilities.results.DataResult;
 import com.btkAkademi.rentACar.core.utilities.results.Result;
 
+import net.bytebuddy.implementation.bind.annotation.Default;
+
 @RestController
 @RequestMapping("/api/cars")
 @CrossOrigin
@@ -37,8 +39,8 @@ public class CarsController {
 	}
 	
 	@GetMapping("getall")
-	public DataResult<List<CarListDto>> getAll(){
-		return this.carService.getAll();
+	public DataResult<List<CarListDto>> getAll(@RequestParam(defaultValue = "0",required = false) int pageNo, @RequestParam(defaultValue = "10") int pageSize){
+		return this.carService.getAll(pageNo, pageSize);
 	}
 	
 	@GetMapping("getbyid")
@@ -50,7 +52,6 @@ public class CarsController {
 	public DataResult<List<CarListDto>> getAllPageable(@RequestParam int pageNo,@RequestParam(required = false) Integer pageSize){
 		return this.carService.getAllPageable(pageNo, pageSize);
 	}
-	
 	
 	@PostMapping("add")
 	public Result add(@RequestBody @Valid CreateCarRequest createCarRequest) {

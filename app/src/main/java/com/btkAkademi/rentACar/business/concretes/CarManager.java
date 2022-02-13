@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.btkAkademi.rentACar.business.abstracts.BrandService;
 import com.btkAkademi.rentACar.business.abstracts.CarService;
@@ -161,12 +162,15 @@ public class CarManager implements CarService{
 	}
 
 	@Override
-	public DataResult<List<CarListDto>> getAll() {
-		List<Car> carList =  this.carDao.findAll();	
+	public DataResult<List<CarListDto>> getAll(int pageNo,int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		List<Car> carList =  this.carDao.findAll(pageable).getContent();	
+		long total = this.carDao.findAll(pageable).getTotalElements();
+		
 		List<CarListDto> response = carList.stream().map(car -> modelMapperService.forDto()
 					.map(car, CarListDto.class)).collect(Collectors.toList());
 		
-		return new SuccessDataResult<List<CarListDto>>(response);
+		return new SuccessDataResult<List<CarListDto>>(response, total);
 	}
 
 	@Override
